@@ -1433,3 +1433,9 @@ authkey = multiprocessing.current_process().authkey
     })
     .map(|authkey: Bound<'_, PyBytes>| authkey.as_bytes().to_vec())
 }
+
+pub fn inject(py: Python<'_>) -> PyResult<()> {
+    let submodule = PyModule::new(py, "rerun_bindings")?;
+    pyo3::py_run!(py, submodule, "import sys; sys.modules['rerun_bindings'] = submodule");
+    rerun_bindings(py, &submodule)    
+}

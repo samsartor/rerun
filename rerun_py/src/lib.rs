@@ -20,3 +20,5 @@ mod video;
 
 #[cfg(feature = "remote")]
 mod remote;
+
+pub use python_bridge::inject;
